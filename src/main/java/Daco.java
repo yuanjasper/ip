@@ -1,10 +1,14 @@
-public class Duke {
+public class Daco {
+    static String LINESEP = "____________________________________________________________";
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo;
+        logo = " ____                  \n" +
+                "|  _ \\  __ _  ___ ___  \n" +
+                "| | | |/ _` |/ __/ _ \\ \n" +
+                "| |_| | (_| | (_| (_) |\n" +
+                "|____/ \\__,_|\\___\\___/ \n";
+        System.out.println(logo + LINESEP);
+        System.out.println("Hi there, I'm Daco! How can I help.\n" + LINESEP);
+        System.out.println("Come back anytime.\n" + LINESEP);
     }
 }
