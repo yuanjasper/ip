@@ -2,21 +2,20 @@ import java.util.*;
 
 public class Daco {
     public static final String LINESEP = "____________________________________________________________\n";
-    public static final String[] neutralfaces = {"(´⌣`ʃƪ)", "| (• ◡•)|", "(◌˘◡˘◌)"};
-    public static final String[] sadfaces = {"（◞‸◟）", "へ[ •́ ‸ •̀ ]ʋ"};
+    public static final String[] neutralfaces = {"(´⌣`ʃƪ)", "| (• ◡•)|", "(◌˘◡˘◌)", "(￣▽￣)ノ", "(ㆆᴗㆆ)", "(⌒ω⌒)ﾉ"};
+    public static final String[] sadfaces = {"（◞‸◟）", "へ[ •́ ‸ •̀ ]ʋ", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String[] todolist = new String[100];
+        Task[] todolist = new Task[100];
         int counter = 0;
-        String logo;
-        logo = " ____                  \n" +
+        String logo = " ____                  \n" +
                 "|  _ \\  __ _  ___ ___  \n" +
                 "| | | |/ _` |/ __/ _ \\ \n" +
                 "| |_| | (_| | (_| (_) |\n" +
-                "|____/ \\__,_|\\___\\___/ \n";
-        System.out.println(logo + LINESEP);
-        System.out.println("Hi there, I'm Daco! How can I help.\n" + LINESEP);
+                "|____/ \\__,_|\\___\\___/ \n \n";
+
+        dacoresponse(logo + "Hi there, I'm Daco! How can I help?");
 
         while (true) {
             String userinput = sc.nextLine();
@@ -27,13 +26,19 @@ public class Daco {
                 showlist(todolist, counter);
                 continue;
             }
-            todolist[counter] = userinput;
+            if (userinput.startsWith("mark ")) {
+                mark(todolist, userinput, true);
+                continue;
+            }
+            if (userinput.startsWith("unmark ")) {
+                mark(todolist, userinput, false);
+                continue;
+            }
+            todolist[counter] = new Task(userinput);
             counter++;
-            System.out.println(LINESEP + "added: " + userinput + " " + randomresponse(neutralfaces) + "\n" + LINESEP);
+            dacoresponse("added: " + userinput + " " + randomresponse(neutralfaces));
         }
-        System.out.println(LINESEP + "Come back anytime. " + randomresponse(sadfaces) + "\n" + LINESEP);
-
-
+        dacoresponse("Come back anytime. " + randomresponse(sadfaces));
     }
 
     public static String randomresponse(String[] responses) {
@@ -41,11 +46,47 @@ public class Daco {
         return responses[random.nextInt(responses.length)];
     }
 
-    public static void showlist(String[] list, int size) {
-        for (int i = 0; i < size; i++) {
-            System.out.println("Item #" + (i + 1) + ": " + list[i]);
+    public static void showlist(Task[] list, int size) {
+        if (size == 0) {
+            dacoresponse("List is empty!" + randomresponse(sadfaces));
+            return;
         }
-        System.out.println(randomresponse(neutralfaces));
+        System.out.print(LINESEP + "Here's your list!\n");
+        for (int i = 0; i < size; i++) {
+            System.out.println("Item #" + (i + 1) + ": " + list[i].display());
+        }
+        System.out.println(randomresponse(neutralfaces) + "\n" + LINESEP);
+    }
+
+    public static void mark(Task[] list, String input, boolean isDone) {
+        String[] command = input.split(" ");
+        if (command.length != 2) {
+            dacoresponse("Please input correctly, for example 'mark 2' to mark off the second character! " + randomresponse(sadfaces));
+        } else {
+            try {
+                int number = Integer.parseInt(command[1]);
+                if (number == 0) {
+                    throw new NumberFormatException();
+                }
+                if (number < 100 && !(list[number - 1] == null)) {
+                    if (isDone) {
+                        list[number - 1] = list[number - 1].markasDone();
+                        dacoresponse("Marked the task! " + randomresponse(neutralfaces) + "\n" + list[number - 1].display());
+                    } else {
+                        list[number - 1] = list[number - 1].markasNotDone();
+                        dacoresponse("Unmarked the task! " + randomresponse(neutralfaces) + "\n" + list[number - 1].display());
+                    }
+                } else {
+                    dacoresponse("Nothing there..." + randomresponse(sadfaces));
+                }
+            } catch (NumberFormatException e) {
+                dacoresponse("Please input a valid number" + randomresponse(sadfaces));
+            }
+        }
+    }
+
+    public static void dacoresponse(String input) {
+        System.out.println(LINESEP + input + "\n" + LINESEP);
     }
 }
 
