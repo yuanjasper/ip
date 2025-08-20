@@ -3,7 +3,7 @@ import java.util.*;
 public class Daco {
     public static final String LINESEP = "____________________________________________________________\n";
     public static final String[] neutralfaces = {"(´⌣`ʃƪ)", "| (• ◡•)|", "(◌˘◡˘◌)", "(￣▽￣)ノ", "(ㆆᴗㆆ)", "(⌒ω⌒)ﾉ"};
-    public static final String[] sadfaces = {"（◞‸◟）", "へ[ •́ ‸ •̀ ]ʋ", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
+    public static final String[] sadfaces = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
