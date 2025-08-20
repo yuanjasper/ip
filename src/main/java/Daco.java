@@ -34,9 +34,28 @@ public class Daco {
                 mark(todolist, userinput, false);
                 continue;
             }
-            todolist[counter] = new Task(userinput);
-            counter++;
-            dacoresponse("added: " + userinput + " " + randomresponse(neutralfaces));
+            if (userinput.startsWith("todo ")) {
+                todolist[counter] = new ToDos(userinput.substring(5));
+                counter++;
+                dacoresponse("The following task has been added:\n" + todolist[counter-1].display() + itemsinlist(counter));
+                continue;
+            }
+            if (userinput.startsWith("deadline ")) {
+                String[] temp = userinput.substring(9).split(",");
+                todolist[counter] = new Deadline(temp[0],temp[1]);
+                counter++;
+                dacoresponse("The following task has been added:\n" + todolist[counter-1].display() + itemsinlist(counter));
+                continue;
+            }
+            if (userinput.startsWith("event ")) {
+                String[] temp = userinput.substring(6).split(", ");
+                todolist[counter] = new Event(temp[0],temp[1]);
+                counter++;
+                dacoresponse("The following task has been added:\n" + todolist[counter-1].display() + itemsinlist(counter));
+            } else {
+                dacoresponse("Try again...");
+            }
+
         }
         dacoresponse("Come back anytime. " + randomresponse(sadfaces));
     }
@@ -87,6 +106,10 @@ public class Daco {
 
     public static void dacoresponse(String input) {
         System.out.println(LINESEP + input + "\n" + LINESEP);
+    }
+
+    public static String itemsinlist(int counter) {
+        return "\nThere " + (counter == 1 ? "is " + counter + " item" : "are " + counter + " items") +  " in the list! " + randomresponse(neutralfaces);
     }
 }
 
