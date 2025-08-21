@@ -5,10 +5,9 @@ public class Daco {
     public static final String[] neutralfaces = {"(´⌣`ʃƪ)", "| (• ◡•)|", "(◌˘◡˘◌)", "(￣▽￣)ノ", "(ㆆᴗㆆ)", "(⌒ω⌒)ﾉ"};
     public static final String[] sadfaces = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
 
-    public static void main(String[] args) throws DacoException {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Task[] todolist = new Task[100];
-        int counter = 0;
+        ArrayList<Task> todolist = new ArrayList<>();
         String logo = " ____                  \n" +
                 "|  _ \\  __ _  ___ ___  \n" +
                 "| | | |/ _` |/ __/ _ \\ \n" +
@@ -24,11 +23,16 @@ public class Daco {
                     break;
                 }
                 if (userinput.equals("list")) {
-                    showlist(todolist, counter);
+                    showlist(todolist);
                     continue;
                 }
                 if (userinput.startsWith("mark ")) {
                     mark(todolist, userinput, true);
+                    String yesorno = sc.nextLine();
+                    if (yesorno.equals("Y")) {
+                        delete(todolist, userinput);
+                        continue;
+                    }
                     continue;
                 }
                 if (userinput.startsWith("unmark ")) {
@@ -37,27 +41,28 @@ public class Daco {
                 }
                 if (userinput.startsWith("todo ")) {
                     validtask(userinput.substring(5));
-                    todolist[counter] = new ToDos(userinput.substring(5));
-                    counter++;
-                    dacoresponse("The following task has been added:\n" + todolist[counter-1].display() + itemsinlist(counter));
+                    todolist.add(new ToDos(userinput.substring(5)));
+                    dacoresponse("The following task has been added:\n" + todolist.getLast().display() + itemsinlist(todolist.size()));
                     continue;
                 }
                 if (userinput.startsWith("deadline ")) {
                     validdate(userinput.substring(9));
                     String[] temp = userinput.substring(9).split(",");
                     validtask(temp[0]);
-                    todolist[counter] = new Deadline(temp[0],temp[1]);
-                    counter++;
-                    dacoresponse("The following task has been added:\n" + todolist[counter-1].display() + itemsinlist(counter));
+                    todolist.add(new Deadline(temp[0],temp[1]));
+                    dacoresponse("The following task has been added:\n" + todolist.getLast().display() + itemsinlist(todolist.size()));
                     continue;
                 }
                 if (userinput.startsWith("event ")) {
                     validdate(userinput.substring(6));
                     String[] temp = userinput.substring(6).split(", ");
                     validtask(temp[0]);
-                    todolist[counter] = new Event(temp[0],temp[1]);
-                    counter++;
-                    dacoresponse("The following task has been added:\n" + todolist[counter-1].display() + itemsinlist(counter));
+                    todolist.add(new Event(temp[0],temp[1]));
+                    dacoresponse("The following task has been added:\n" + todolist.getLast().display() + itemsinlist(todolist.size()));
+                    continue;
+                }
+                if (userinput.startsWith("delete ")) {
+                    delete(todolist, userinput);
                     continue;
                 }
                 throw new DacoException(DacoException.ErrorType.UNKNOWN_COMMAND);
@@ -91,40 +96,63 @@ public class Daco {
         return responses[random.nextInt(responses.length)];
     }
 
-    public static void showlist(Task[] list, int size) {
-        if (size == 0) {
+    public static void showlist(ArrayList<Task> list) {
+        if (list.isEmpty()) {
             dacoresponse("List is empty!" + randomresponse(sadfaces));
             return;
         }
         System.out.print(LINESEP + "Here's your list!\n");
-        for (int i = 0; i < size; i++) {
-            System.out.println("Item #" + (i + 1) + ": " + list[i].display());
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("Item #" + (i + 1) + ": " + list.get(i).display());
         }
         System.out.println(randomresponse(neutralfaces) + "\n" + LINESEP);
     }
 
-    public static void mark(Task[] list, String input, boolean isDone) throws DacoException {
+    public static void delete(ArrayList<Task> list, String input) throws DacoException {
         String[] command = input.split(" ");
         if (command.length != 2) {
             dacoresponse("Please input correctly, for example 'mark 2' to mark off the second character! " + randomresponse(sadfaces));
         } else {
             try {
                 int number = Integer.parseInt(command[1]);
-                if (number == 0) {
+                if (number <= 0) {
                     throw new DacoException(DacoException.ErrorType.INVALID_NUMBER);
                 }
-                if (number < 100 && !(list[number - 1] == null)) {
+                if (number > list.size()) {
+                    throw new DacoException(DacoException.ErrorType.DOES_NOT_EXIST);
+                } else {
+                    dacoresponse("Task removed! " + randomresponse(neutralfaces) + "\n" + list.get(number - 1).display() + "\n" + itemsinlist(list.size() - 1));
+                    list.remove(number - 1);
+                }
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                throw new DacoException(DacoException.ErrorType.INVALID_NUMBER);
+            }
+        }
+    }
+
+    public static void mark(ArrayList<Task> list, String input, boolean isDone) throws DacoException {
+        String[] command = input.split(" ");
+        if (command.length != 2) {
+            dacoresponse("Please input correctly, for example 'mark 2' to mark off the second character! " + randomresponse(sadfaces));
+        } else {
+            try {
+                int number = Integer.parseInt(command[1]);
+                if (number <= 0) {
+                    throw new DacoException(DacoException.ErrorType.INVALID_NUMBER);
+                }
+                if (!(list.get(number-1) == null)) {
                     if (isDone) {
-                        list[number - 1] = list[number - 1].markasDone();
-                        dacoresponse("Marked the task! " + randomresponse(neutralfaces) + "\n" + list[number - 1].display());
+                        list.set(number - 1, list.get(number-1).markasDone());
+                        dacoresponse("Marked the task! " + randomresponse(neutralfaces)
+                                + "\n" + list.get(number - 1).display() + "\nWould you like to delete the task? (Y/N)");
                     } else {
-                        list[number - 1] = list[number - 1].markasNotDone();
-                        dacoresponse("Unmarked the task! " + randomresponse(neutralfaces) + "\n" + list[number - 1].display());
+                        list.set(number - 1, list.get(number-1).markasNotDone());
+                        dacoresponse("Unmarked the task! " + randomresponse(neutralfaces) + "\n" + list.get(number - 1).display());
                     }
                 } else {
                     throw new DacoException(DacoException.ErrorType.DOES_NOT_EXIST);
                 }
-            } catch (NumberFormatException e) {
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new DacoException(DacoException.ErrorType.INVALID_NUMBER);
             }
         }
