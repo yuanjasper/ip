@@ -31,5 +31,13 @@ public class Task {
     public Task markasNotDone() {
         return new Task(this.description, false);
     }
+
+    public boolean getisDone() {
+        return this.isDone;
+    }
+
+    public String saveinfile() {
+        return "Error";
+    }
 }
 

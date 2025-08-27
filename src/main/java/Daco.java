@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 public class Daco {
@@ -5,9 +6,12 @@ public class Daco {
     public static final String[] neutralfaces = {"(´⌣`ʃƪ)", "| (• ◡•)|", "(◌˘◡˘◌)", "(￣▽￣)ノ", "(ㆆᴗㆆ)", "(⌒ω⌒)ﾉ"};
     public static final String[] sadfaces = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        Storage loadedfile = new Storage();
+
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> todolist = new ArrayList<>();
+        ArrayList<Task> todolist = loadedfile.load();
         String logo = " ____                  \n" +
                 "|  _ \\  __ _  ___ ___  \n" +
                 "| | | |/ _` |/ __/ _ \\ \n" +
@@ -20,6 +24,7 @@ public class Daco {
             try {
                 String userinput = sc.nextLine();
                 if (userinput.equals("bye")) {
+                    loadedfile.save(todolist);
                     break;
                 }
                 if (userinput.equals("list")) {
@@ -32,8 +37,10 @@ public class Daco {
                     if (yesorno.equals("Y")) {
                         delete(todolist, userinput);
                         continue;
+                    } else {
+                        dacoresponse("Okay, I won't do anything! " + randomresponse(neutralfaces));
+                        continue;
                     }
-                    continue;
                 }
                 if (userinput.startsWith("unmark ")) {
                     mark(todolist, userinput, false);

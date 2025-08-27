@@ -26,5 +26,9 @@ public class Deadline extends Task {
     public Deadline markasNotDone() {
         return new Deadline(this.description, false, this.deadline);
     }
+
+    public String saveinfile() {
+        return "D | " + (super.getisDone() ? 1 : 0) + " | " + this.description + " | " + this.deadline + "\n";
+    }
 }
 
