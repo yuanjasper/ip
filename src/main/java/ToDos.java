@@ -23,5 +23,9 @@ public class ToDos extends Task {
     public ToDos markasNotDone() {
         return new ToDos(this.description, false);
     }
+
+    public String saveinfile() {
+        return "T | " + (super.getisDone() ? 1 : 0) + " | " + this.description + "\n";
+    }
 }
 

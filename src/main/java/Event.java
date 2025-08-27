@@ -26,5 +26,9 @@ public class Event extends Task {
     public Event markasNotDone() {
         return new Event(this.description, false, this.duration);
     }
+
+    public String saveinfile() {
+        return "E | " + (super.getisDone() ? 1 : 0) + " | " + this.description + " | " + this.duration + "\n";
+    }
 }
 
