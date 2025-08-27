@@ -37,7 +37,7 @@ public class Storage {
                         continue;
                     }
                     if (split[0].equals("D")) {
-                        list.add(new Deadline(split[2], split[1].equals("1"), split[3] ));
+                        list.add(new Deadline(split[2], split[1].equals("1"), split[3]));
                         continue;
                     }
                     if (split[0].equals("E")) {
@@ -46,10 +46,10 @@ public class Storage {
                 }
                 return list;
             }
-        } catch (IOException e) {
+        } catch (IOException | DacoException e) {
             System.out.println("Error");
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public void save(ArrayList<Task> list) {

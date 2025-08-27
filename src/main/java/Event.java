@@ -1,12 +1,17 @@
 public class Event extends Task {
-    protected String duration;
+    protected DateAndTime duration;
 
-    public Event(String description, String duration) {
+    public Event(String description, String duration) throws DacoException {
         super(description);
-        this.duration = duration;
+        this.duration = new DateAndTime(duration);
     }
 
-    public Event(String description, boolean isDone, String duration) {
+    public Event(String description, boolean isDone, String duration) throws DacoException {
+        super(description, isDone);
+        this.duration = new DateAndTime(duration);
+    }
+
+    public Event(String description, boolean isDone, DateAndTime duration) {
         super(description, isDone);
         this.duration = duration;
     }
@@ -16,7 +21,7 @@ public class Event extends Task {
     }
 
     public String display() {
-        return "[E]" + super.display() + " (" + this.duration + ")";
+        return "[E]" + super.display() + " (" + this.duration.display() + ")";
     }
 
     public Event markasDone() {
@@ -28,7 +33,7 @@ public class Event extends Task {
     }
 
     public String saveinfile() {
-        return "E | " + (super.getisDone() ? 1 : 0) + " | " + this.description + " | " + this.duration + "\n";
+        return "E | " + (super.getisDone() ? 1 : 0) + " | " + this.description + " | " + this.duration.save() + "\n";
     }
 }
 

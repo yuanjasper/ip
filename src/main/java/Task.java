@@ -24,11 +24,11 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public Task markasDone() {
+    public Task markasDone() throws DacoException {
         return new Task(this.description, true);
     }
 
-    public Task markasNotDone() {
+    public Task markasNotDone() throws DacoException {
         return new Task(this.description, false);
     }
 
