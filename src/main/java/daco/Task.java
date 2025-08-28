@@ -41,5 +41,9 @@ public class Task {
     public String saveinfile() {
         return "Error";
     }
+
+    public boolean contains(String input) {
+        return this.description.contains(input);
+    }
 }
 

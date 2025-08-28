@@ -67,7 +67,12 @@ public class Ui {
             }
             else if (userinput.startsWith("delete ")) {
                 todolist.delete(userinput);
-            } else {
+            }
+            else if (userinput.startsWith("find ")) {
+                String tasktofind = userinput.substring(5);
+                new Parser().validtask(tasktofind);
+                todolist.find(tasktofind);
+            }else {
                 new Parser().errors(new DacoException(DacoException.ErrorType.INVALID_COMMANDMARK));
             }
         } catch (DacoException e) {
