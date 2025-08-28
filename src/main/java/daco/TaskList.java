@@ -1,3 +1,8 @@
+/**
+ * Representation of the to do list, contains only Task class items
+ * Handles functions related to manipulation of data in the to do list.
+ */
+
 package daco;
 import java.util.ArrayList;
 import java.util.Random;
