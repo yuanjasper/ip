@@ -1,4 +1,5 @@
 package Daco.Task;
+
 import Daco.Ui.DacoException;
 
 public class Task {

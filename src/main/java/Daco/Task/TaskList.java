@@ -100,6 +100,6 @@ public class TaskList {
     }
 
     public Task getLast() {
-        return this.list.getLast();
+        return this.list.get(this.list.size()-1);
     }
 }
