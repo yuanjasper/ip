@@ -1,4 +1,10 @@
 package daco;
+/**
+ * Handles date and time formatting for tasks that are to be put inside the tasklist
+ *
+ * Two main features are formatting the display date, and formatting the dates during save
+ */
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

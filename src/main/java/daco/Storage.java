@@ -1,3 +1,6 @@
+/**
+ * Class responsible for loading data, saving the data file's location and contents
+ */
 package daco;
 import java.io.File;
 import java.io.FileWriter;

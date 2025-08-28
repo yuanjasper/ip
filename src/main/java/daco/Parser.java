@@ -1,3 +1,6 @@
+/**
+ * Main class for handling proper logic for inadequete, incomplete commands
+ */
 package daco;
 import java.util.Random;
 import java.util.ArrayList;

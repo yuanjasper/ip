@@ -1,3 +1,8 @@
+/**
+ * Extension of Task to be placed in a to do list, deadline represents by when to be completed
+ *
+ * handles formatting to be saved in file for entire row
+ */
 package daco;
 
 public class Deadline extends Task {
