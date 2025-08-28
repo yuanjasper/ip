@@ -1,6 +1,4 @@
-package Daco.Task;
-
-import Daco.Ui.DacoException;
+package daco;
 
 public class Task {
     protected String description;

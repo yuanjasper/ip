@@ -1,15 +1,10 @@
-package Daco.Ui;
-
+package daco;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Daco.Task.Task;
-import Daco.Task.ToDos;
-import Daco.Task.Event;
-import Daco.Task.Deadline;
 
 public class Storage {
     private final java.nio.file.Path filepath;

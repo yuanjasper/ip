@@ -1,5 +1,4 @@
-package Daco.Task;
-
+package daco;
 public class ToDos extends Task {
 
     public ToDos(String description) {

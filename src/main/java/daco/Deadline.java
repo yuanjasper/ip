@@ -1,7 +1,4 @@
-package Daco.Task;
-
-import Daco.Ui.DateAndTime;
-import Daco.Ui.DacoException;
+package daco;
 
 public class Deadline extends Task {
     protected DateAndTime deadline;

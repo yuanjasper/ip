@@ -1,13 +1,8 @@
-package Daco.Ui;
-
+package daco;
 import java.io.IOException;
-import java.util.*;
-import Daco.Task.TaskList;
+import java.util.Scanner;
 
 public class Daco {
-    public static final String LINESEP = "____________________________________________________________\n";
-    public static final String[] neutralfaces = {"(´⌣`ʃƪ)", "| (• ◡•)|", "(◌˘◡˘◌)", "(￣▽￣)ノ", "(ㆆᴗㆆ)", "(⌒ω⌒)ﾉ"};
-    public static final String[] sadfaces = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
 
     public static void main(String[] args) throws IOException, DacoException {
 

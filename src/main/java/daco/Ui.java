@@ -1,12 +1,7 @@
-//deals with interactions with the user
-package Daco.Ui;
-
+package daco;
 import java.util.Random;
 import java.util.Scanner;
-import Daco.Task.TaskList;
-import Daco.Task.ToDos;
-import Daco.Task.Deadline;
-import Daco.Task.Event;
+
 
 public class Ui {
     public final String LINESEP = "____________________________________________________________\n";
@@ -36,18 +31,19 @@ public class Ui {
             dacoresponse("Come back anytime. " + randomresponse(sadfaces));
     }
 
-    public void input(String userinput, TaskList todolist, Scanner sc) throws DacoException {
+    public void input(String userinput, TaskList todolist, Scanner sc) {
         try {
             if (userinput.equals("list")) {
                 todolist.showlist();
             }
             else if (userinput.startsWith("mark ")) {
-                todolist.mark(userinput, true);
-                String option = sc.nextLine();
-                if (option.equals("Y")) {
-                    todolist.delete(userinput);
-                } else {
-                    dacoresponse("Okay, I won't do anything! " + randomresponse(neutralfaces));
+                if (todolist.mark(userinput, true)) {
+                    String option = sc.nextLine();
+                    if (option.equals("Y")) {
+                        todolist.delete(userinput);
+                    } else {
+                        dacoresponse("Okay, I won't do anything! " + randomresponse(neutralfaces));
+                    }
                 }
             }
             else if (userinput.startsWith("unmark ")) {
@@ -77,9 +73,10 @@ public class Ui {
         } catch (DacoException e) {
             return;
         }
+    }
 
-
-
+    public void test() {
+        System.out.println("test");
     }
 }
 

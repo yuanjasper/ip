@@ -1,6 +1,6 @@
-package Daco.Ui;
-
+package daco;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Parser {
     public final String[] sadfaces = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
@@ -26,6 +26,27 @@ public class Parser {
         }
     }
 
+    public String[] validitemdate(String input) throws DacoException {
+        String[] command = input.split(" ");
+        if (command.length != 2) {
+            this.errors(new DacoException(DacoException.ErrorType.INVALID_FORMAT_DELETE));
+        }
+        try {
+            Integer.parseInt(command[1]);
+            return command;
+        } catch (NumberFormatException e) {
+            this.errors(new DacoException(DacoException.ErrorType.INVALID_NUMBER));
+        }
+        return command;
+    }
+
+    public int withinrange(int number, ArrayList<Task> list) throws DacoException {
+        if (number <= 0 || number > list.size()) {
+            this.errors(new DacoException(DacoException.ErrorType.DOES_NOT_EXIST));
+        }
+        return number;
+    }
+
     public void errors(DacoException e) throws DacoException {
         if (e.getType() == DacoException.ErrorType.INVALID_NUMBER) {
             dacoresponse("Please input a valid number." + randomresponse(sadfaces));
@@ -45,6 +66,10 @@ public class Parser {
         if (e.getType() == DacoException.ErrorType.EMPTY_DATE) {
             dacoresponse("Missing date... " + randomresponse(sadfaces));
         }
+        if (e.getType() == DacoException.ErrorType.INVALID_FORMAT_DELETE) {
+            dacoresponse("Please input correctly, for example 'delete 2' to delete the second character! " + randomresponse(sadfaces));
+        }
+
         throw new DacoException(e.getType());
     }
 
