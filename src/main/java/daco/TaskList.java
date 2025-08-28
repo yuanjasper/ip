@@ -89,4 +89,20 @@ public class TaskList {
     public Task getLast() {
         return this.list.get(this.list.size()-1);
     }
+
+    public void find(String item) {
+        boolean isEmpty = true;
+        String output = "";
+        for (int i = 0; i < this.list.size(); i++) {
+            if (this.list.get(i).contains(item)) {
+                isEmpty = false;
+                output = output + "\n" + "Item #" + (i + 1) + ": " + this.list.get(i).display();
+            }
+        }
+        if (isEmpty) {
+            dacoresponse("Nothing matches your search...");
+        } else {
+            dacoresponse("Here's what we got!" + output);
+        }
+    }
 }
