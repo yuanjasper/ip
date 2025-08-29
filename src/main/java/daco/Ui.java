@@ -1,3 +1,8 @@
+/**
+ * Handles the input from user but does not check whether a command is available or correct
+ * Programme does the responses for correct execution of input.
+ */
+
 package daco;
 import java.util.Random;
 import java.util.Scanner;
