@@ -1,3 +1,7 @@
+/**
+ * Class that handle the start of entire programme
+ */
+
 package daco;
 import java.io.IOException;
 import java.util.Scanner;
