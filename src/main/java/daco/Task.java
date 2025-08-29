@@ -1,3 +1,6 @@
+/**
+ * Most general class for items to be placed into the to do list
+ */
 package daco;
 
 public class Task {
