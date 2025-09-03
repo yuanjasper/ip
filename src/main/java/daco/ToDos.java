@@ -1,8 +1,9 @@
+package daco;
+
 /** Extension of Task to be placed in a to do list, todos represents basic tasks
  *
  * handles formatting to be saved in file for entire row
  */
-package daco;
 public class ToDos extends Task {
     /**
      * Returns ToDos constructor class, assisted by Task class constructor

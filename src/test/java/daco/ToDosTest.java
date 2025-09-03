@@ -1,9 +1,8 @@
 package daco;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 public class ToDosTest {
     @Test
@@ -14,6 +13,6 @@ public class ToDosTest {
     @Test
     public void saveinfile_emptystring() {
         ToDos t = new ToDos("", false);
-        assertEquals("T | 0 | " + "" + "\n", t.formatToSaveInFile());
+        assertEquals("T | 0 | " + "\n", t.formatToSaveInFile());
     }
 }

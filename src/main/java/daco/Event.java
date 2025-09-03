@@ -1,10 +1,9 @@
-/** Extension of Task to be placed in a to do list, event represents when the event starts
+package daco;
+/**
+ * Extension of Task to be placed in a to do list, event represents when the event starts
  *
  * handles formatting to be saved in file for entire row
  */
-
-package daco;
-
 public class Event extends Task {
     protected DateAndTime duration;
     /**

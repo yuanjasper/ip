@@ -1,18 +1,16 @@
 package daco;
-/**
- * Handles date and time formatting for tasks that are to be put inside the tasklist
- *
- * Two main features are formatting the display date, and formatting the dates during save
- */
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+/**
+ * Handles date and time formatting for tasks that are to be put inside the tasklist
+ * Two main features are formatting the display date, and formatting the dates during save
+ */
 public class DateAndTime {
 
     private final LocalDateTime datetime;
 
-    private static final DateTimeFormatter[] INPUT_FORMATS = new DateTimeFormatter[]{
+    private final DateTimeFormatter[] inputFormats = new DateTimeFormatter[]{
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm"), DateTimeFormatter.ofPattern("d-M-yyyy HHmm"),
     };
     /**
@@ -30,14 +28,14 @@ public class DateAndTime {
      * @param input String format of the date and time input
      */
     public LocalDateTime formatDate(String input) throws DacoException {
-        for (DateTimeFormatter formats : INPUT_FORMATS) {
+        for (DateTimeFormatter formats : inputFormats) {
             try {
                 return LocalDateTime.parse(input.trim(), formats);
             } catch (Exception ignored) {
-
+                throw new DacoException(DacoException.ErrorType.INVALID_COMMANDMARK);
             }
         }
-        throw new DacoException(DacoException.ErrorType.INVALID_COMMANDMARK);
+        return this.datetime;
     }
     /**
      * Returns String to be printed, similar to a toString method

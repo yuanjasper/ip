@@ -1,17 +1,16 @@
+package daco;
+
+import java.util.ArrayList;
+import java.util.Random;
 /**
  * Representation of the to do list, contains only Task class items
  * Handles functions related to manipulation of data in the to do list.
  */
-
-package daco;
-import java.util.ArrayList;
-import java.util.Random;
-
 public class TaskList {
     public final ArrayList<Task> list;
-    public final String LINESEP = "____________________________________________________________\n";
-    public final String[] neutralfaces = {"(´⌣`ʃƪ)", "| (• ◡•)|", "(◌˘◡˘◌)", "(￣▽￣)ノ", "(ㆆᴗㆆ)", "(⌒ω⌒)ﾉ"};
-    public final String[] sadfaces = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
+    public final String lineSep = "____________________________________________________________\n";
+    public final String[] neutralFaces = {"(´⌣`ʃƪ)", "| (• ◡•)|", "(◌˘◡˘◌)", "(￣▽￣)ノ", "(ㆆᴗㆆ)", "(⌒ω⌒)ﾉ"};
+    public final String[] sadFaces = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
 
 
     public TaskList(ArrayList<Task> list) {
@@ -27,14 +26,14 @@ public class TaskList {
      */
     public void showList() {
         if (this.list.isEmpty()) {
-            dacoResponse("List is empty!" + randomResponse(sadfaces));
+            dacoResponse("List is empty!" + randomResponse(sadFaces));
             return;
         }
-        System.out.print(LINESEP + "Here's your list!\n");
+        System.out.print(lineSep + "Here's your list!\n");
         for (int i = 0; i < this.list.size(); i++) {
             System.out.println("Item #" + (i + 1) + ": " + this.list.get(i).display());
         }
-        System.out.println(randomResponse(neutralfaces) + "\n" + LINESEP);
+        System.out.println(randomResponse(neutralFaces) + "\n" + lineSep);
     }
     /**
      * Deletes the index of list, using Parser to handle invalid inputs
@@ -47,10 +46,11 @@ public class TaskList {
             int number = Integer.parseInt(command[1]);
             new Parser().existItem(number, this.list);
             Task removedtask = this.list.get(number - 1);
-            this.list.remove(number-1);
-            dacoResponse("Task removed! " + randomResponse(neutralfaces) + "\n" + removedtask.display() + "\n" + this.itemsInList());
+            this.list.remove(number - 1);
+            dacoResponse("Task removed! " + randomResponse(neutralFaces)
+                    + "\n" + removedtask.display() + "\n" + this.itemsInList());
         } catch (DacoException ignored) {
-
+            return;
         }
     }
     /**
@@ -67,14 +67,15 @@ public class TaskList {
 
             if (isDone) {
                 this.list.set(number - 1, this.list.get(number - 1).markAsDone());
-                dacoResponse("Marked the task! " + randomResponse(neutralfaces)
+                dacoResponse("Marked the task! " + randomResponse(neutralFaces)
                         + "\n" + this.list.get(number - 1).display() + "\nWould you like to delete the task? (Y/N)");
             } else {
                 this.list.set(number - 1, this.list.get(number - 1).markAsNotDone());
-                dacoResponse("Unmarked the task! " + randomResponse(neutralfaces) + "\n" + this.list.get(number - 1).display());
+                dacoResponse("Unmarked the task! "
+                        + randomResponse(neutralFaces) + "\n" + this.list.get(number - 1).display());
             }
             return true;
-        } catch(DacoException ignored){
+        } catch (DacoException ignored) {
             return false;
         }
     }
@@ -84,14 +85,15 @@ public class TaskList {
      * @param input what you want the chatbot to say besides the design stuff
      */
     public void dacoResponse(String input) {
-        System.out.println(LINESEP + input + "\n" + LINESEP);
+        System.out.println(lineSep + input + "\n" + lineSep);
     }
     /**
      * Returns a String of what the bot should say based on the number of items there are in the list
      */
     public String itemsInList() {
         int counter = this.list.size();
-        return "\nThere " + (counter == 1 ? "is " + counter + " item" : "are " + counter + " items") + " in the list! " + randomResponse(neutralfaces);
+        return "\nThere " + (counter == 1 ? "is " + counter
+                + " item" : "are " + counter + " items") + " in the list! " + randomResponse(neutralFaces);
     }
     /**
      * Returns a String of a random response from an array of faces
@@ -113,7 +115,7 @@ public class TaskList {
     }
 
     public Task getLast() {
-        return this.list.get(this.list.size()-1);
+        return this.list.get(this.list.size() - 1);
     }
     /**
      * finds items based on common description given the input

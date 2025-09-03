@@ -1,10 +1,10 @@
+package daco;
+
 /**
  * Extension of Task to be placed in a to do list, deadline represents by when to be completed
  *
  * handles formatting to be saved in file for entire row
  */
-package daco;
-
 public class Deadline extends Task {
     protected DateAndTime deadline;
 
@@ -50,7 +50,7 @@ public class Deadline extends Task {
      * Returns the format for the task to be printed out
      */
     public String display() {
-        return "[D]" + super.display()  + " (Due: " + this.deadline.display() + ")";
+        return "[D]" + super.display() + " (Due: " + this.deadline.display() + ")";
     }
     /**
      * Returns new Deadline object after being marked done

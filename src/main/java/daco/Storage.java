@@ -1,6 +1,3 @@
-/**
- * Class responsible for loading data, saving the data file's location and contents
- */
 package daco;
 import java.io.File;
 import java.io.FileWriter;
@@ -8,7 +5,9 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Class responsible for loading data, saving the data file's location and contents
+ */
 public class Storage {
     private final java.nio.file.Path filepath;
     /**
@@ -16,7 +15,7 @@ public class Storage {
      */
     public Storage() {
         String home = System.getProperty("user.home");
-        this.filepath = Paths.get(home,"data" + "daco.txt");
+        this.filepath = Paths.get(home, "data" + "daco.txt");
     }
     /**
      * Loads the data from the file into the to do list of the current run
