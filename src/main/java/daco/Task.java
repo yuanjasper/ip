@@ -6,17 +6,29 @@ package daco;
 public class Task {
     protected String description;
     protected boolean isDone;
-
+    /**
+     * Returns Task constructor class, assisted by Task class constructor
+     *
+     * @param description  is to describe the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
-
+    /**
+     * Returns Deadline constructor class, assisted by Task class constructor
+     *
+     * @param description  is to describe the task
+     * @param isDone is to indicate whether the task is marked or not
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
-
+    /**
+     * Returns a X if marked, nothing is not marked
+     *
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -24,27 +36,44 @@ public class Task {
     public String toString() {
         return this.description;
     }
-
+    /**
+     * Returns the format for the task to be printed out
+     */
     public String display() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
-
-    public Task markasDone() throws DacoException {
+    /**
+     * Returns new Task object after being marked done
+     */
+    public Task markAsDone() throws DacoException {
         return new Task(this.description, true);
     }
-
-    public Task markasNotDone() throws DacoException {
+    /**
+     * Returns new Task object after being unmarked
+     */
+    public Task markAsNotDone() throws DacoException {
         return new Task(this.description, false);
     }
 
-    public boolean getisDone() {
+    /**
+     * Returns the state of the object's marked or unmarked
+     *
+     */
+    public boolean isDone() {
         return this.isDone;
     }
-
-    public String saveinfile() {
+    /**
+     * Returns the string for when the task is saved to file
+     * Code should not run at all time as Task object itself won't be saved
+     */
+    public String formatToSaveInFile() {
         return "Error";
     }
-
+    /**
+     * Returns true false if the description of the object contains the input
+     *
+     * @param input something you are trying to find about the description of a task
+     */
     public boolean contains(String input) {
         return this.description.contains(input);
     }

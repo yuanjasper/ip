@@ -9,16 +9,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateAndTime {
+
     private final LocalDateTime datetime;
 
     private static final DateTimeFormatter[] INPUT_FORMATS = new DateTimeFormatter[]{
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm"), DateTimeFormatter.ofPattern("d-M-yyyy HHmm"),
     };
-
+    /**
+     * Returns the constructor for DateAndTime class
+     *
+     * @param datetime String format of the date and time input
+     */
     public DateAndTime(String datetime) throws DacoException {
         this.datetime = formatDate(datetime);
     }
-
+    /**
+     * Returns LocalDateTime if the string input matches the enumerated INPUT_FORMATS
+     * Otherwise, throws a DacoException indicating invalid command mark
+     *
+     * @param input String format of the date and time input
+     */
     public LocalDateTime formatDate(String input) throws DacoException {
         for (DateTimeFormatter formats : INPUT_FORMATS) {
             try {
@@ -29,12 +39,16 @@ public class DateAndTime {
         }
         throw new DacoException(DacoException.ErrorType.INVALID_COMMANDMARK);
     }
-
+    /**
+     * Returns String to be printed, similar to a toString method
+     */
     public String display() {
         return this.datetime.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm"));
     }
-
-    public String save() {
+    /**
+     * Returns String to format date and time during saving of the to do list
+     */
+    public String saveFormat() {
         return this.datetime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 

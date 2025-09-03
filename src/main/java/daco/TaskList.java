@@ -18,91 +18,121 @@ public class TaskList {
         this.list = list;
     }
 
-    public ArrayList<Task> getlist() {
+    public ArrayList<Task> getList() {
         return this.list;
     }
-
-    public void showlist() {
+    /**
+     * Prints out either two states of the list, empty or non-empty
+     *
+     */
+    public void showList() {
         if (this.list.isEmpty()) {
-            dacoresponse("List is empty!" + randomresponse(sadfaces));
+            dacoResponse("List is empty!" + randomResponse(sadfaces));
             return;
         }
         System.out.print(LINESEP + "Here's your list!\n");
         for (int i = 0; i < this.list.size(); i++) {
             System.out.println("Item #" + (i + 1) + ": " + this.list.get(i).display());
         }
-        System.out.println(randomresponse(neutralfaces) + "\n" + LINESEP);
+        System.out.println(randomResponse(neutralfaces) + "\n" + LINESEP);
     }
-
+    /**
+     * Deletes the index of list, using Parser to handle invalid inputs
+     *
+     * @param input list item number
+     */
     public void delete(String input) throws DacoException {
         try {
-            String[] command = new Parser().validitemdate(input);
+            String[] command = new Parser().verifyDeleteFormat(input);
             int number = Integer.parseInt(command[1]);
-            new Parser().withinrange(number, this.list);
+            new Parser().existItem(number, this.list);
             Task removedtask = this.list.get(number - 1);
             this.list.remove(number-1);
-            dacoresponse("Task removed! " + randomresponse(neutralfaces) + "\n" + removedtask.display() + "\n" + this.itemsinlist());
+            dacoResponse("Task removed! " + randomResponse(neutralfaces) + "\n" + removedtask.display() + "\n" + this.itemsInList());
         } catch (DacoException ignored) {
 
         }
     }
-
+    /**
+     * Marks or unmarks the item on the list using list item number
+     *
+     * @param input list item number
+     * @param isDone state of what the object should be in
+     */
     public boolean mark(String input, boolean isDone) throws DacoException {
         try {
-            String[] command = new Parser().validitemdate(input);
+            String[] command = new Parser().verifyDeleteFormat(input);
             int number = Integer.parseInt(command[1]);
-            new Parser().withinrange(number, this.list);
+            new Parser().existItem(number, this.list);
 
             if (isDone) {
-                this.list.set(number - 1, this.list.get(number - 1).markasDone());
-                dacoresponse("Marked the task! " + randomresponse(neutralfaces)
+                this.list.set(number - 1, this.list.get(number - 1).markAsDone());
+                dacoResponse("Marked the task! " + randomResponse(neutralfaces)
                         + "\n" + this.list.get(number - 1).display() + "\nWould you like to delete the task? (Y/N)");
             } else {
-                this.list.set(number - 1, this.list.get(number - 1).markasNotDone());
-                dacoresponse("Unmarked the task! " + randomresponse(neutralfaces) + "\n" + this.list.get(number - 1).display());
+                this.list.set(number - 1, this.list.get(number - 1).markAsNotDone());
+                dacoResponse("Unmarked the task! " + randomResponse(neutralfaces) + "\n" + this.list.get(number - 1).display());
             }
             return true;
         } catch(DacoException ignored){
             return false;
         }
     }
-
-    public void dacoresponse(String input) {
+    /**
+     * Prints the standard chatbot output
+     *
+     * @param input what you want the chatbot to say besides the design stuff
+     */
+    public void dacoResponse(String input) {
         System.out.println(LINESEP + input + "\n" + LINESEP);
     }
-
-    public String itemsinlist() {
+    /**
+     * Returns a String of what the bot should say based on the number of items there are in the list
+     */
+    public String itemsInList() {
         int counter = this.list.size();
-        return "\nThere " + (counter == 1 ? "is " + counter + " item" : "are " + counter + " items") + " in the list! " + randomresponse(neutralfaces);
+        return "\nThere " + (counter == 1 ? "is " + counter + " item" : "are " + counter + " items") + " in the list! " + randomResponse(neutralfaces);
     }
-
-    public String randomresponse(String[] responses) {
+    /**
+     * Returns a String of a random response from an array of faces
+     *
+     * @param responses the array list of faces you wish to choose from
+     */
+    public String randomResponse(String[] responses) {
         Random random = new Random();
         return responses[random.nextInt(responses.length)];
     }
-
+    /**
+     * Adds task to the list
+     *
+     * @param task the task that you want to add
+     */
     public void add(Task task) {
         this.list.add(task);
-        dacoresponse("The following task has been added:\n" + this.getLast().display() + this.itemsinlist());
+        dacoResponse("The following task has been added:\n" + this.getLast().display() + this.itemsInList());
     }
 
     public Task getLast() {
         return this.list.get(this.list.size()-1);
     }
-
-    public void find(String item) {
+    /**
+     * finds items based on common description given the input
+     *
+     * @param description what the user wants to search
+     */
+    public void findByDescription(String description) {
         boolean isEmpty = true;
         String output = "";
         for (int i = 0; i < this.list.size(); i++) {
-            if (this.list.get(i).contains(item)) {
+            if (this.list.get(i).contains(description)) {
                 isEmpty = false;
                 output = output + "\n" + "Item #" + (i + 1) + ": " + this.list.get(i).display();
             }
         }
         if (isEmpty) {
-            dacoresponse("Nothing matches your search...");
+            dacoResponse("Nothing matches your search...");
         } else {
-            dacoresponse("Here's what we got!" + output);
+            dacoResponse("Here's what we got!" + output);
         }
     }
 }

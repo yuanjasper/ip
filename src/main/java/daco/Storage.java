@@ -11,16 +11,17 @@ import java.util.Scanner;
 
 public class Storage {
     private final java.nio.file.Path filepath;
-    private final boolean doesExist;
-
+    /**
+     * Constructs the Storage class object, achieves the file path via paths
+     */
     public Storage() {
         String home = System.getProperty("user.home");
-        java.nio.file.Path filepath = Paths.get(home,"data" + "daco.txt");
-        this.filepath = filepath;
-        this.doesExist = java.nio.file.Files.exists(filepath);
+        this.filepath = Paths.get(home,"data" + "daco.txt");
     }
-
-    public ArrayList<Task> load() throws IOException {
+    /**
+     * Loads the data from the file into the to do list of the current run
+     */
+    public ArrayList<Task> load() {
         try {
             File file = new File(String.valueOf(this.filepath));
             if (file.createNewFile()) {
@@ -54,12 +55,14 @@ public class Storage {
         }
         return new ArrayList<>();
     }
-
+    /**
+     * Saves the to do list contents into the same file by rewriting the file
+     */
     public void save(ArrayList<Task> list) {
         try {
             FileWriter writer = new FileWriter(String.valueOf(this.filepath), false);
             for (Task task : list) {
-                writer.write(task.saveinfile());
+                writer.write(task.formatToSaveInFile());
             }
             writer.close();
         } catch (IOException e) {

@@ -9,11 +9,11 @@ public class ToDosTest {
     @Test
     public void saveinfile_notdone() {
         ToDos t = new ToDos("test", false);
-        assertEquals("T | 0 | " + "test" + "\n", t.saveinfile());
+        assertEquals("T | 0 | " + "test" + "\n", t.formatToSaveInFile());
     }
     @Test
     public void saveinfile_emptystring() {
         ToDos t = new ToDos("", false);
-        assertEquals("T | 0 | " + "" + "\n", t.saveinfile());
+        assertEquals("T | 0 | " + "" + "\n", t.formatToSaveInFile());
     }
 }
