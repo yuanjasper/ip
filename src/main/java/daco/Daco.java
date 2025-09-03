@@ -1,11 +1,9 @@
-/**
- * Class that handle the start of entire programme
- */
-
 package daco;
 import java.io.IOException;
 import java.util.Scanner;
-
+/**
+ * Class that handle the start of entire programme
+ */
 public class Daco {
     /**
      * Runs the program, initialises storage to retrieve previous to do list
@@ -20,14 +18,14 @@ public class Daco {
         Ui ui = new Ui();
 
         while (true) {
-                String userInput = sc.nextLine();
-                if (userInput.equals("bye")) {
-                    loadedfile.save(toDoList.getList());
-                    ui.bye();
-                    break;
-                } else {
-                    ui.input(userInput, toDoList, sc);
-                }
+            String userInput = sc.nextLine();
+            if (userInput.equals("bye")) {
+                loadedfile.save(toDoList.getList());
+                ui.bye();
+                break;
+            } else {
+                ui.input(userInput, toDoList, sc);
+            }
         }
     }
 }

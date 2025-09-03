@@ -6,7 +6,11 @@ package daco;
  */
 
 public class DacoException extends Exception {
-    public enum ErrorType {DOES_NOT_EXIST, INVALID_COMMANDMARK, UNKNOWN_COMMAND, INVALID_NUMBER, EMPTY_TASK, EMPTY_DATE, INVALID_FORMAT_DELETE}
+    /**
+     * Enumeration of all the ErrorTypes
+     */
+    public enum ErrorType { DOES_NOT_EXIST, INVALID_COMMANDMARK, UNKNOWN_COMMAND,
+        INVALID_NUMBER, EMPTY_TASK, EMPTY_DATE, INVALID_FORMAT_DELETE }
     protected final ErrorType type;
 
     /**

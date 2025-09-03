@@ -1,8 +1,7 @@
+package daco;
 /**
  * Most general class for items to be placed into the to do list
  */
-package daco;
-
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -26,7 +25,7 @@ public class Task {
         this.isDone = isDone;
     }
     /**
-     * Returns a X if marked, nothing is not marked
+     * Returns an X if marked, nothing is not marked
      *
      */
     public String getStatusIcon() {
