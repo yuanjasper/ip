@@ -24,8 +24,24 @@ public class Daco {
                 ui.bye();
                 break;
             } else {
-                ui.input(userInput, toDoList, sc);
+                ui.input(userInput, toDoList, loadedfile);
             }
+        }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String userInput) {
+        Storage loadedfile = new Storage();
+        TaskList toDoList = new TaskList(loadedfile.load());
+        Ui ui = new Ui();
+
+        if (userInput.equals("bye")) {
+            loadedfile.save(toDoList.getList());
+            return ui.bye();
+        } else {
+            return ui.input(userInput, toDoList, loadedfile);
         }
     }
 }

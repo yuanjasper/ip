@@ -6,7 +6,7 @@ import java.util.Random;
  */
 public class Parser {
     public final String[] sadFaces = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
-    public final String lineSep = "____________________________________________________________\n";
+    public final String lineSep = "________________________________________________________\n";
     /**
      * Checks that the input given has a non-empty date, otherwise throws the empty date exception
      *
@@ -19,10 +19,10 @@ public class Parser {
             verifyTask(temp[0]);
             verifyTask(temp[1]);
             new DateAndTime(temp[1]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            this.errors(new DacoException(DacoException.ErrorType.EMPTY_DATE));
+        } catch (ArrayIndexOutOfBoundsException e) { //may cause double throwing if wrong
+            throw new DacoException(DacoException.ErrorType.EMPTY_DATE);
         } catch (DacoException e) {
-            this.errors(new DacoException(e.getType()));
+            throw new DacoException(e.getType());
         }
     }
     /**
@@ -74,39 +74,38 @@ public class Parser {
      * @param e takes in the DacoException to check for the specific type before outputting message
      * @throws DacoException
      */
-    public void errors(DacoException e) throws DacoException {
+    public String errors(DacoException e) {
         if (e.getType() == DacoException.ErrorType.INVALID_NUMBER) {
-            dacoResponse("Please input a valid number." + randomResponse(sadFaces));
+            return dacoResponse("Please input a valid number." + randomResponse(sadFaces));
         }
         if (e.getType() == DacoException.ErrorType.DOES_NOT_EXIST) {
-            dacoResponse("Nothing there... " + randomResponse(sadFaces));
+            return dacoResponse("Nothing there... " + randomResponse(sadFaces));
         }
         if (e.getType() == DacoException.ErrorType.INVALID_COMMANDMARK) {
-            dacoResponse("Hey buddy, think you typed it wrongly..." + randomResponse(sadFaces));
+            return dacoResponse("Hey buddy, think you typed it wrongly..." + randomResponse(sadFaces));
         }
         if (e.getType() == DacoException.ErrorType.UNKNOWN_COMMAND) {
-            dacoResponse("That's a negative, I can't do that...yet " + randomResponse(sadFaces));
+            return dacoResponse("That's a negative, I can't do that...yet " + randomResponse(sadFaces));
         }
         if (e.getType() == DacoException.ErrorType.EMPTY_TASK) {
-            dacoResponse("Uh.. there's no task name... " + randomResponse(sadFaces));
+            return dacoResponse("Uh.. there's no task name... " + randomResponse(sadFaces));
         }
         if (e.getType() == DacoException.ErrorType.EMPTY_DATE) {
-            dacoResponse("Missing date... " + randomResponse(sadFaces));
+            return dacoResponse("Missing date... " + randomResponse(sadFaces));
         }
         if (e.getType() == DacoException.ErrorType.INVALID_FORMAT_DELETE) {
-            dacoResponse("Please input correctly, for example "
+            return dacoResponse("Please input correctly, for example "
                     + "'delete 2' to delete the second character! " + randomResponse(sadFaces));
         }
-
-        throw new DacoException(e.getType());
+        return dacoResponse("No error found");
     }
     /**
      * Prints the standard chatbot output
      *
      * @param input what you want the chatbot to say besides the design stuff
      */
-    public void dacoResponse(String input) {
-        System.out.println(lineSep + input + "\n" + lineSep);
+    public String dacoResponse(String input) {
+        return lineSep + input + "\n" + lineSep;
     }
     /**
      * Returns a String of a random response from an array of faces

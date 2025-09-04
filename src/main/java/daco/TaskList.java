@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class TaskList {
     public final ArrayList<Task> list;
-    public final String lineSep = "____________________________________________________________\n";
+    public final String lineSep = "________________________________________________________\n";
     public final String[] neutralFaces = {"(´⌣`ʃƪ)", "| (• ◡•)|", "(◌˘◡˘◌)", "(￣▽￣)ノ", "(ㆆᴗㆆ)", "(⌒ω⌒)ﾉ"};
     public final String[] sadFaces = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
 
@@ -24,34 +24,30 @@ public class TaskList {
      * Prints out either two states of the list, empty or non-empty
      *
      */
-    public void showList() {
+    public String showList() {
         if (this.list.isEmpty()) {
-            dacoResponse("List is empty!" + randomResponse(sadFaces));
-            return;
+            return dacoResponse("List is empty!" + randomResponse(sadFaces));
         }
-        System.out.print(lineSep + "Here's your list!\n");
+        String listToPrint = lineSep + "Here's your list!\n";
         for (int i = 0; i < this.list.size(); i++) {
-            System.out.println("Item #" + (i + 1) + ": " + this.list.get(i).display());
+            listToPrint = listToPrint + "Item #" + (i + 1) + ": " + this.list.get(i).display() + "\n";
         }
-        System.out.println(randomResponse(neutralFaces) + "\n" + lineSep);
+        return listToPrint + randomResponse(neutralFaces) + "\n" + lineSep;
     }
     /**
      * Deletes the index of list, using Parser to handle invalid inputs
      *
      * @param input list item number
      */
-    public void delete(String input) throws DacoException {
-        try {
-            String[] command = new Parser().verifyDeleteFormat(input);
-            int number = Integer.parseInt(command[1]);
-            new Parser().existItem(number, this.list);
-            Task removedtask = this.list.get(number - 1);
-            this.list.remove(number - 1);
-            dacoResponse("Task removed! " + randomResponse(neutralFaces)
+    public String delete(String input, Storage loadedfile) throws DacoException {
+        String[] command = new Parser().verifyDeleteFormat(input);
+        int number = Integer.parseInt(command[1]);
+        new Parser().existItem(number, this.list);
+        Task removedtask = this.list.get(number - 1);
+        this.list.remove(number - 1);
+        loadedfile.save(this.list);
+        return dacoResponse("Task removed! " + randomResponse(neutralFaces)
                     + "\n" + removedtask.display() + "\n" + this.itemsInList());
-        } catch (DacoException ignored) {
-            return;
-        }
     }
     /**
      * Marks or unmarks the item on the list using list item number
@@ -59,24 +55,20 @@ public class TaskList {
      * @param input list item number
      * @param isDone state of what the object should be in
      */
-    public boolean mark(String input, boolean isDone) throws DacoException {
-        try {
-            String[] command = new Parser().verifyDeleteFormat(input);
-            int number = Integer.parseInt(command[1]);
-            new Parser().existItem(number, this.list);
+    public String mark(String input, boolean isDone, Storage loadedfile) throws DacoException {
+        String[] command = new Parser().verifyDeleteFormat(input);
+        int number = Integer.parseInt(command[1]);
+        new Parser().existItem(number, this.list);
 
-            if (isDone) {
-                this.list.set(number - 1, this.list.get(number - 1).markAsDone());
-                dacoResponse("Marked the task! " + randomResponse(neutralFaces)
-                        + "\n" + this.list.get(number - 1).display() + "\nWould you like to delete the task? (Y/N)");
-            } else {
-                this.list.set(number - 1, this.list.get(number - 1).markAsNotDone());
-                dacoResponse("Unmarked the task! "
-                        + randomResponse(neutralFaces) + "\n" + this.list.get(number - 1).display());
-            }
-            return true;
-        } catch (DacoException ignored) {
-            return false;
+        if (isDone) {
+            this.list.set(number - 1, this.list.get(number - 1).markAsDone());
+            loadedfile.save(this.list);
+            return dacoResponse("Marked the task! " + randomResponse(neutralFaces));
+        } else {
+            this.list.set(number - 1, this.list.get(number - 1).markAsNotDone());
+            loadedfile.save(this.list);
+            return dacoResponse("Unmarked the task! "
+                    + randomResponse(neutralFaces) + "\n" + this.list.get(number - 1).display());
         }
     }
     /**
@@ -84,8 +76,8 @@ public class TaskList {
      *
      * @param input what you want the chatbot to say besides the design stuff
      */
-    public void dacoResponse(String input) {
-        System.out.println(lineSep + input + "\n" + lineSep);
+    public String dacoResponse(String input) {
+        return lineSep + input + "\n" + lineSep;
     }
     /**
      * Returns a String of what the bot should say based on the number of items there are in the list
@@ -109,9 +101,10 @@ public class TaskList {
      *
      * @param task the task that you want to add
      */
-    public void add(Task task) {
+    public String add(Task task, Storage loadedfile) {
         this.list.add(task);
-        dacoResponse("The following task has been added:\n" + this.getLast().display() + this.itemsInList());
+        loadedfile.save(this.list);
+        return dacoResponse("The following task has been added:\n" + this.getLast().display() + this.itemsInList());
     }
 
     public Task getLast() {
@@ -122,7 +115,7 @@ public class TaskList {
      *
      * @param description what the user wants to search
      */
-    public void findByDescription(String description) {
+    public String findByDescription(String description) {
         boolean isEmpty = true;
         String output = "";
         for (int i = 0; i < this.list.size(); i++) {
@@ -132,9 +125,9 @@ public class TaskList {
             }
         }
         if (isEmpty) {
-            dacoResponse("Nothing matches your search...");
+            return dacoResponse("Nothing matches your search...");
         } else {
-            dacoResponse("Here's what we got!" + output);
+            return dacoResponse("Here's what we got!" + output);
         }
     }
 }
