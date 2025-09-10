@@ -74,6 +74,7 @@ public class Task {
      * @param input something you are trying to find about the description of a task
      */
     public boolean contains(String input) {
+        assert input != null && !input.isEmpty();
         return this.description.contains(input);
     }
 }

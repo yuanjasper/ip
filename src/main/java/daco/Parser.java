@@ -61,9 +61,8 @@ public class Parser {
      *
      * @param number adjusted to follow list numberings
      * @param list to do list
-     * @throws DacoException when is empty
      */
-    public void existItem(int number, ArrayList<Task> list) throws DacoException {
+    public void existItem(int number, ArrayList<Task> list) {
         if (number <= 0 || number > list.size()) {
             this.errors(new DacoException(DacoException.ErrorType.DOES_NOT_EXIST));
         }
