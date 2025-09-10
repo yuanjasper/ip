@@ -28,6 +28,7 @@ public class TaskList {
         if (this.list.isEmpty()) {
             return dacoResponse("List is empty!" + randomResponse(sadFaces));
         }
+
         String listToPrint = lineSep + "Here's your list!\n";
         for (int i = 0; i < this.list.size(); i++) {
             listToPrint = listToPrint + "Item #" + (i + 1) + ": " + this.list.get(i).display() + "\n";
@@ -41,10 +42,12 @@ public class TaskList {
      */
     public String delete(String input, Storage loadedfile) throws DacoException {
         String[] command = new Parser().verifyDeleteFormat(input);
+        
         int number = Integer.parseInt(command[1]);
         assert number > 0 && number <= this.list.size();
 
         new Parser().existItem(number, this.list);
+
         Task removedtask = this.list.get(number - 1);
         this.list.remove(number - 1);
         loadedfile.save(this.list);

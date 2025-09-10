@@ -24,11 +24,9 @@ public class Storage {
         try {
             File file = new File(String.valueOf(this.filepath));
             if (file.createNewFile()) {
-                System.out.println("Created File at" + String.valueOf(this.filepath));
                 return new ArrayList<Task>();
             }
             else {
-                System.out.println("File already at" + String.valueOf(this.filepath));
                 Scanner sc = new Scanner(file);
                 ArrayList<Task> list = new ArrayList<>();
                 while (sc.hasNextLine()) {
