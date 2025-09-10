@@ -107,6 +107,7 @@ public class TaskList {
      */
     public String add(Task task, Storage loadedfile) {
         assert task != null;
+        
         this.list.add(task);
         loadedfile.save(this.list);
         return dacoResponse("The following task has been added:\n" + this.getLast().display() + this.itemsInList());
