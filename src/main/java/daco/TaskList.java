@@ -42,6 +42,8 @@ public class TaskList {
     public String delete(String input, Storage loadedfile) throws DacoException {
         String[] command = new Parser().verifyDeleteFormat(input);
         int number = Integer.parseInt(command[1]);
+        assert number > 0 && number <= this.list.size();
+
         new Parser().existItem(number, this.list);
         Task removedtask = this.list.get(number - 1);
         this.list.remove(number - 1);
@@ -58,6 +60,8 @@ public class TaskList {
     public String mark(String input, boolean isDone, Storage loadedfile) throws DacoException {
         String[] command = new Parser().verifyDeleteFormat(input);
         int number = Integer.parseInt(command[1]);
+        assert number > 0 && number <= this.list.size();
+
         new Parser().existItem(number, this.list);
 
         if (isDone) {
@@ -102,6 +106,7 @@ public class TaskList {
      * @param task the task that you want to add
      */
     public String add(Task task, Storage loadedfile) {
+        assert task != null;
         this.list.add(task);
         loadedfile.save(this.list);
         return dacoResponse("The following task has been added:\n" + this.getLast().display() + this.itemsInList());
