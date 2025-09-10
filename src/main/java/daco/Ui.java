@@ -76,6 +76,8 @@ public class Ui {
                 String tasksToFind = userInput.substring(5);
                 new Parser().verifyTask(tasksToFind);
                 return toDoList.findByDescription(tasksToFind);
+            } else if (userInput.startsWith("sort")) {
+                return toDoList.sortByDate();
             } else {
                 throw new DacoException(DacoException.ErrorType.INVALID_COMMANDMARK);
             }

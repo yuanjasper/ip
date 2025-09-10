@@ -70,5 +70,13 @@ public class Deadline extends Task {
     public String formatToSaveInFile() {
         return "D | " + (super.isDone() ? 1 : 0) + " | " + this.description + " | " + this.deadline.saveFormat() + "\n";
     }
+
+    public String getType() {
+        return "Deadline";
+    }
+
+    public DateAndTime getTime() {
+        return this.deadline;
+    }
 }
 

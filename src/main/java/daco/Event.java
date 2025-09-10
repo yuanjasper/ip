@@ -66,5 +66,13 @@ public class Event extends Task {
     public String formatToSaveInFile() {
         return "E | " + (super.isDone() ? 1 : 0) + " | " + this.description + " | " + this.duration.saveFormat() + "\n";
     }
+
+    public String getType() {
+        return "Event";
+    }
+
+    public DateAndTime getTime() {
+        return this.duration;
+    }
 }
 

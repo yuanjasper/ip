@@ -49,15 +49,14 @@ public class Parser {
     public String[] verifyDeleteFormat(String input) throws DacoException {
         String[] command = input.split(" ");
         if (command.length != 2) {
-            this.errors(new DacoException(ErrorType.INVALID_FORMAT_DELETE));
+            throw new DacoException(ErrorType.INVALID_FORMAT_DELETE);
         }
         try {
             Integer.parseInt(command[1]);
             return command;
         } catch (NumberFormatException e) {
-            this.errors(new DacoException(ErrorType.INVALID_NUMBER));
+            throw new DacoException(ErrorType.INVALID_NUMBER);
         }
-        return command;
     }
     /**
      * Checks that the input given access a correct / available item
@@ -65,9 +64,9 @@ public class Parser {
      * @param number adjusted to follow list numberings
      * @param list to do list
      */
-    public void existItem(int number, ArrayList<Task> list) {
+    public void existItem(int number, ArrayList<Task> list) throws DacoException {
         if (number <= 0 || number > list.size()) {
-            this.errors(new DacoException(ErrorType.DOES_NOT_EXIST));
+            throw new DacoException(ErrorType.DOES_NOT_EXIST);
         }
     }
     /**

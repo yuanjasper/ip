@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
  * Handles date and time formatting for tasks that are to be put inside the tasklist
  * Two main features are formatting the display date, and formatting the dates during save
  */
-public class DateAndTime {
+public class DateAndTime implements Comparable<DateAndTime> {
 
     private final LocalDateTime datetime;
 
@@ -50,5 +50,9 @@ public class DateAndTime {
         return this.datetime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 
+    @Override
+    public int compareTo(DateAndTime o) {
+        return this.datetime.compareTo(o.datetime);
+    }
 }
 
