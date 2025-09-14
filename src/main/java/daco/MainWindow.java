@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(
+        dialogContainer.getChildren().addAll(DialogBox.getDacoDialog(
                 " ____                  \n"
                 + "|  _ \\  __ _  ___ ___  \n"
                 + "| | | |/ _` |/ __/ _ \\ \n"
@@ -51,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = daco.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dacoImage)
+                DialogBox.getDacoDialog(response, dacoImage)
         );
         userInput.clear();
     }

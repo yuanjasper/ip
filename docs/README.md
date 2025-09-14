@@ -1,30 +1,55 @@
-# Duke User Guide
+# DacoBot User Guide
 
-// Update the title above to match the actual product name
+![Product Screenshot](docs/Ui.png)
 
-// Product screenshot goes here
+Introducing DacoBot, the bot that manages three whole tasks and puts them into a list for your convenience. 
 
-// Product intro goes here
+## Adding Tasks
 
-## Adding deadlines
+You add a Task that you need to do via the command ->
 
-// Describe the action and its outcome.
+Example: todo homework
 
-// Give examples of usage
+And the bot lets you know that the task has been added along with your total list size
 
-Example: `keyword (optional arguments)`
+## Adding Deadlines or Events
 
-// A description of the expected outcome goes here
+You add a deadline or event that you need to remember ->
 
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
+Example: deadline homework, 14/9/2025 1800
 
 
-## Feature XYZ
+And the bot lets you know that the deadline / event has been added along with your total list size
 
-// Feature details
+## Marking and Unmarking tasks
+
+The bot lets you mark and unmark tasks via the command ->
+
+Example: mark 2
+
+This marks the 2nd item in the list and the bot proceeds to show you the entire list again
+
+
+## Showing the entire list
+
+Just put the simple command of
+
+Example: list
+
+And the bot shows you your list of tasks!
+
+## Sorting chronologically
+
+If you ever need to know which tasks are coming soon, just use
+
+Example: sort
+
+And the bot tells you all the tasks that are upcoming in chronological order
+
+## Finding tasks
+
+If you ever need to find a task by its description, use
+
+Example: find work
+
+And the bot searches through your entire list tasks for matching descriptions!

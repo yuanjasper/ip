@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -26,6 +27,7 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    private Circle avatarBorder;
 
     private DialogBox(String text, Image img) {
         try {
@@ -39,6 +41,11 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        //Used ChatGPT to generate text wrapping
+        dialog.setWrapText(true);
+        dialog.setMaxWidth(320);
+        dialog.setMinHeight(Region.USE_PREF_SIZE);
 
         //Used ChatGPT to generate code for a circular picture frame
         if (displayPicture.getFitWidth() == 0 || displayPicture.getFitHeight() == 0) {
@@ -68,14 +75,17 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
     }
-
+    //Used ChatGPT to format User Dialogue Box
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.dialog.setStyle("-fx-background-color: #d8f4c7; -fx-background-radius: 15; -fx-padding: 10;");
+        return db;
     }
-
-    public static DialogBox getDukeDialog(String text, Image img) {
+    //Used ChatGPT to format Daco Dialogue Box
+    public static DialogBox getDacoDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.dialog.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-padding: 10;");
         return db;
     }
 }

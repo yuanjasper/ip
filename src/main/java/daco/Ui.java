@@ -7,7 +7,6 @@ import java.util.Random;
  */
 
 public class Ui {
-    public final String LINE_SEPERATOR = "________________________________________________________\n";
     public final String[] NEUTRAL_FACES = {"(´⌣`ʃƪ)", "| (• ◡•)|", "(◌˘◡˘◌)", "(￣▽￣)ノ", "(ㆆᴗㆆ)", "(⌒ω⌒)ﾉ"};
     public final String[] SAD_FACES = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
 
@@ -20,7 +19,7 @@ public class Ui {
      * @param input what you want the chatbot to say besides the design stuff
      */
     public String dacoResponse(String input) {
-        return LINE_SEPERATOR + input + "\n" + LINE_SEPERATOR;
+        return input;
     }
 
     /**

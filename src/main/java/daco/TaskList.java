@@ -10,7 +10,6 @@ import java.util.Random;
  */
 public class TaskList {
     public final ArrayList<Task> list;
-    public final String LINE_SEPERATOR = "________________________________________________________\n";
     public final String[] NEUTRAL_FACES = {"(´⌣`ʃƪ)", "| (• ◡•)|", "(◌˘◡˘◌)", "(￣▽￣)ノ", "(ㆆᴗㆆ)", "(⌒ω⌒)ﾉ"};
     public final String[] SAD_FACES = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
 
@@ -31,11 +30,11 @@ public class TaskList {
             return dacoResponse("List is empty!" + randomResponse(SAD_FACES));
         }
 
-        String listToPrint = LINE_SEPERATOR + "Here's your list!\n";
+        String listToPrint = "Here's your list!\n";
         for (int i = 0; i < this.list.size(); i++) {
             listToPrint = listToPrint + "Item #" + (i + 1) + ": " + this.list.get(i).display() + "\n";
         }
-        return listToPrint + randomResponse(NEUTRAL_FACES) + "\n" + LINE_SEPERATOR;
+        return listToPrint + randomResponse(NEUTRAL_FACES) + "\n";
     }
     /**
      * Deletes the index of list, using Parser to handle invalid inputs
@@ -88,7 +87,7 @@ public class TaskList {
      * @param input what you want the chatbot to say besides the design stuff
      */
     public String dacoResponse(String input) {
-        return LINE_SEPERATOR + input + "\n" + LINE_SEPERATOR;
+        return input;
     }
     /**
      * Returns a String of what the bot should say based on the number of items there are in the list

@@ -9,7 +9,6 @@ import java.util.Random;
  */
 public class Parser {
     public final String[] SAD_FACES = {"（◞‸◟）", "(˘︹˘)", "( ;︵; )", "（；_・）", "(ノ_ヽ)"};
-    public final String LINE_SEPERATOR = "________________________________________________________\n";
     /**
      * Checks that the input given has a non-empty date, otherwise throws the empty date exception
      *
@@ -117,7 +116,7 @@ public class Parser {
      * @param input what you want the chatbot to say besides the design stuff
      */
     public String dacoResponse(String input) {
-        return LINE_SEPERATOR + input + "\n" + LINE_SEPERATOR;
+        return input;
     }
     /**
      * Returns a String of a random response from an array of faces
