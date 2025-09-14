@@ -77,5 +77,13 @@ public class Task {
         assert input != null && !input.isEmpty();
         return this.description.contains(input);
     }
+
+    public String getType() {
+        return "Task";
+    }
+
+    DateAndTime getTime() {
+        return null;
+    }
 }
 

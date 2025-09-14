@@ -50,5 +50,9 @@ public class ToDos extends Task {
     public String formatToSaveInFile() {
         return "T | " + (super.isDone() ? 1 : 0) + " | " + this.description + "\n";
     }
+
+    public String getType() {
+        return "ToDos";
+    }
 }
 
