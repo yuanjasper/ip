@@ -1,6 +1,6 @@
 # DacoBot User Guide
 
-![Product Screenshot](docs/Ui.png)
+![Product Screenshot](https://github.com/yuanjasper/ip/blob/master/docs/Ui.png)
 
 Introducing DacoBot, the bot that manages three whole tasks and puts them into a list for your convenience. 
 
