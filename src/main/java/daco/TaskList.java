@@ -152,6 +152,9 @@ public class TaskList {
                 .filter(x -> x.getType().equals("Deadline") || x.getType().equals("Event"))
                 .sorted(Comparator.comparing(x -> x.getTime())).toList();
         String output = listToSort.stream().map(x -> x.display()).reduce("", (x, y) -> x + y + "\n");
-        return dacoResponse(output);
+        if (output.isEmpty()) {
+            return dacoResponse("Sorry! There are no tasks available with chronological features");
+        }
+        return dacoResponse("Here's what we got in chronological order:\n" + output);
     }
 }

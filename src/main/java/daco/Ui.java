@@ -75,12 +75,30 @@ public class Ui {
                 return toDoList.findByDescription(tasksToFind);
             case "sort":
                 return toDoList.sortByDate();
+            case "help":
+                return this.help();
             default:
                 throw new DacoException(DacoException.ErrorType.INVALID_COMMANDMARK);
             }
         } catch (DacoException e) {
             return new Parser().errors(e);
         }
+    }
+    /**
+     * Returns the list of functions and how to write them
+     */
+    public String help() {
+        return dacoResponse("Hi there, I see you requested help! Here's what I can do \n"
+                + "list: Shows you items in your list\n"
+                + "mark <item #>: Marks the item at the requested number\n"
+                + "unmark <item #>: Unmarks the item at the requested number\n"
+                + "todo <description>: Adds a todo task into your list\n"
+        + "deadline <description>, <time>: Adds a deadline into your list \n"
+        + "event <description>, <time>: Adds an event into your list\n"
+        + "delete <item #>: Deletes the item at the requested number\n"
+        + "find <description>: Finds item(s) matching partial description requested\n"
+        + "sort: Gives you a list of items sorted in chronological order");
+
     }
 }
 

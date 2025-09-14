@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- Used ChatGPT for auto-resizing -->
-<AnchorPane prefHeight="600.0" prefWidth="400.0"
+<AnchorPane prefHeight="600.0" prefWidth="500.0"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="daco.MainWindow">
