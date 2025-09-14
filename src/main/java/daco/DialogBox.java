@@ -8,10 +8,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -35,6 +39,24 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        //Used ChatGPT to generate code for a circular picture frame
+        if (displayPicture.getFitWidth() == 0 || displayPicture.getFitHeight() == 0) {
+            displayPicture.setFitWidth(50);
+            displayPicture.setFitHeight(50);
+            displayPicture.setPreserveRatio(true);
+            displayPicture.setSmooth(true);
+        }
+
+        double r = Math.min(displayPicture.getFitWidth(), displayPicture.getFitHeight()) / 2.0;
+        Circle clip = new Circle(r, r, r);
+        displayPicture.setClip(clip);
+
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+        WritableImage rounded = displayPicture.snapshot(params, null);
+        displayPicture.setClip(null);
+        displayPicture.setImage(rounded);
     }
 
     /**

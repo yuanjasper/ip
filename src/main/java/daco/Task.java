@@ -75,7 +75,7 @@ public class Task {
      */
     public boolean contains(String input) {
         assert input != null && !input.isEmpty();
-        return this.description.contains(input);
+        return (" " + this.description).toLowerCase().contains(input.toLowerCase());
     }
 
     public String getType() {
