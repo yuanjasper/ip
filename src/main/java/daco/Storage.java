@@ -25,8 +25,7 @@ public class Storage {
             File file = new File(String.valueOf(this.filepath));
             if (file.createNewFile()) {
                 return new ArrayList<Task>();
-            }
-            else {
+            } else {
                 Scanner sc = new Scanner(file);
                 ArrayList<Task> list = new ArrayList<>();
                 while (sc.hasNextLine()) {
